@@ -3,7 +3,7 @@ services:
     web: 
         image: nginx:alpine
         restart: always
-        user: ${UID}:${GID}
+        user: ${MY_UID}:${MY_GID}
         volumes:
             - ./default-html:/var/www/html
             - ./conf.d:/etc/nginx/conf.d:ro
@@ -16,7 +16,7 @@ services:
     certbot:
         image: certbot/certbot:latest
         command: certonly --webroot --webroot-path=/var/www/certbot --email pecato2003@arpizol.com --agree-tos --no-eff-email -d vds-868ba4.1gb.ru -d www.vds-868ba4.1gb.ru
-        user: ${UID}:${GID}
+        user: ${MY_UID}:${MY_GID}
         volumes:
             - ./certbot/conf:/etc/letsencrypt
             - ./certbot/logs:/var/log/letsencrypt
