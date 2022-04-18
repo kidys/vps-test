@@ -29,8 +29,8 @@ services:
     #Laravel App
     app:
         build:
-        context: ./php
-        dockerfile: Dockerfile
+            context: ./php
+            dockerfile: Dockerfile
         image: kidys/laravel
         container_name: app
         restart: unless-stopped
