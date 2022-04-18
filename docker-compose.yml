@@ -2,20 +2,46 @@ version: "3.9"
 services:
     web: 
         image: nginx:alpine
+        container_name: web
         restart: always
         volumes:
-            - ./default-html:/var/www/html
+            - ./laravel:/var/www/html
             - ./conf.d:/etc/nginx/conf.d:ro
             - ./certbot/conf:/etc/nginx/ssl:ro
             - ./certbot/data:/var/www/certbot:ro
         ports:
             - 80:80
             - 443:443
+        networks:
+            - kidysnet
 
     certbot:
         image: certbot/certbot:latest
+        container_name: certbot
         command: certonly --webroot --webroot-path=/var/www/certbot --email pecato2003@arpizol.com --agree-tos --no-eff-email -d vds-868ba4.1gb.ru -d www.vds-868ba4.1gb.ru
         volumes:
             - ./certbot/conf:/etc/letsencrypt
             - ./certbot/logs:/var/log/letsencrypt
             - ./certbot/data:/var/www/certbot
+        networks:
+            - kidysnet
+
+    #Laravel App
+    app:
+        build:
+        context: ./php
+        dockerfile: Dockerfile
+        image: kidys/laravel
+        container_name: app
+        restart: unless-stopped
+        tty: true
+        working_dir: /var/www/html
+        volumes:
+            - ./laravel:/var/www/html
+        networks:
+            - kidysnet
+
+#Docker Networks
+networks:
+  kidysnet:
+    driver: bridge
