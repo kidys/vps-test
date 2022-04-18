@@ -29,6 +29,9 @@ services:
     #Laravel App
     app:
         build:
+            args:
+                user: ubuntu
+                uid: 1000
             context: ./php
             dockerfile: Dockerfile
         image: kidys/laravel
