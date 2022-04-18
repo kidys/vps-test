@@ -2,6 +2,8 @@ FROM php:8.1-fpm
 
 WORKDIR /var/www/html
 
+RUN ls -l
+
 # Copy composer.lock and composer.json
 COPY ../laravel/composer.lock ../laravel/composer.json /var/www/html/
 
