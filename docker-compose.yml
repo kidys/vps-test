@@ -9,6 +9,8 @@ services:
             - ./conf.d:/etc/nginx/conf.d:ro
             - ./certbot/conf:/etc/nginx/ssl:ro
             - ./certbot/data:/var/www/certbot:ro
+            - /etc/passwd:/etc/passwd:ro
+            - /etc/group:/etc/group:ro
         ports:
             - 80:80
             - 443:443
