@@ -3,7 +3,7 @@ FROM php:8.1-fpm
 WORKDIR /var/www/html
 
 # Copy composer.lock and composer.json
-COPY composer.lock composer.json /var/www/html/
+COPY ./laravel/composer.lock ./laravel/composer.json /var/www/html/
 
 # Install PHP Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
